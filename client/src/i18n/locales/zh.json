@@ -1,0 +1,222 @@
+{
+  "sidebar": {
+    "title": "MCP 检查器",
+    "transportType": "传输类型",
+    "selectTransportType": "选择传输类型",
+    "command": "命令",
+    "commandPlaceholder": "命令",
+    "arguments": "参数",
+    "argumentsPlaceholder": "参数（空格分隔）",
+    "url": "URL",
+    "connectionType": "连接类型",
+    "selectConnectionType": "选择连接类型",
+    "viaProxy": "通过代理",
+    "direct": "直接连接",
+    "connectionTypeTip": "直接连接到服务器（需要服务器配置 CORS）或通过 MCP Inspector 代理连接",
+    "environmentVariables": "环境变量",
+    "addEnvironmentVariable": "添加环境变量",
+    "envVarKey": "环境变量键 {{index}}",
+    "envVarValue": "环境变量值 {{index}}",
+    "keyPlaceholder": "键",
+    "valuePlaceholder": "值",
+    "hideValue": "隐藏值",
+    "showValue": "显示值",
+    "serverEntry": "服务器条目",
+    "copyServerEntry": "复制服务器条目",
+    "serversFile": "服务器文件",
+    "copyServersFile": "复制服务器文件",
+    "authentication": "认证",
+    "oauthFlow": "OAuth 2.0 流程",
+    "clientId": "客户端 ID",
+    "clientIdPlaceholder": "客户端 ID",
+    "clientSecret": "客户端密钥",
+    "clientSecretPlaceholder": "客户端密钥（可选）",
+    "hideSecret": "隐藏密钥",
+    "showSecret": "显示密钥",
+    "redirectUrl": "重定向 URL",
+    "redirectUrlPlaceholder": "重定向 URL",
+    "scope": "范围",
+    "scopePlaceholder": "范围（空格分隔）",
+    "configuration": "配置",
+    "restart": "重启",
+    "reconnect": "重新连接",
+    "disconnect": "断开连接",
+    "connect": "连接",
+    "connected": "已连接",
+    "disconnected": "未连接",
+    "connectionError": "连接错误 - 请检查 MCP 服务器是否运行以及代理令牌是否正确",
+    "connectionErrorNoToken": "连接错误 - 您是否已在配置中添加代理会话令牌？",
+    "errorConnectingToProxy": "连接到 MCP Inspector 代理时出错 - 请查看控制台日志",
+    "version": "版本",
+    "loggingLevel": "日志级别",
+    "selectLoggingLevel": "选择日志级别",
+    "theme": {
+      "system": "系统",
+      "light": "浅色",
+      "dark": "深色"
+    },
+    "inspectorDocumentation": "Inspector 文档",
+    "debuggingGuide": "调试指南",
+    "reportBugs": "在 GitHub 上报告 Bug 或参与贡献",
+    "configEntryCopied": "配置条目已复制",
+    "configEntryCopiedStdio": "服务器配置已复制到剪贴板。请将其添加到 mcp.json 文件中 'mcpServers' 对象内，并使用您偏好的服务器名称。",
+    "configEntryCopiedStreamableHttp": "Streamable HTTP URL 已复制。请直接在您的 MCP 客户端中使用此 URL。",
+    "configEntryCopiedSse": "SSE URL 已复制。请直接在您的 MCP 客户端中使用此 URL。",
+    "serversFileCopied": "服务器文件已复制",
+    "serversFileCopiedDesc": "服务器配置已复制到剪贴板。请将其添加到您的 mcp.json 文件。当前测试服务器将以 'default-server' 名称添加。",
+    "copyError": "错误",
+    "copyErrorDesc": "复制配置失败：{{error}}",
+    "trueFalse": {
+      "true": "是",
+      "false": "否"
+    }
+  },
+  "tabs": {
+    "resources": "资源",
+    "prompts": "提示词",
+    "tools": "工具",
+    "tasks": "任务",
+    "apps": "应用",
+    "ping": "Ping",
+    "sampling": "采样",
+    "elicitations": "信息请求",
+    "roots": "根目录",
+    "auth": "认证",
+    "metadata": "元数据"
+  },
+  "tools": {
+    "title": "工具",
+    "selectTool": "选择工具",
+    "runTool": "运行工具",
+    "toolResult": "工具结果",
+    "noToolSelected": "从列表中选择工具以查看其详情",
+    "annotations": {
+      "readOnly": "只读",
+      "readOnlyDesc": "工具不会修改其环境",
+      "destructive": "破坏性",
+      "destructiveDesc": "工具可能执行破坏性更新（删除/覆盖数据）",
+      "idempotent": "幂等",
+      "idempotentDesc": "使用相同参数重复调用不会产生额外效果",
+      "openWorld": "开放世界",
+      "openWorldDesc": "工具可能与其本地环境之外的外部实体交互"
+    },
+    "copyInput": "复制输入",
+    "copyInputError": "错误",
+    "copyInputErrorDesc": "复制输入到剪贴板时出错：{{error}}",
+    "listTools": "列出工具",
+    "listMoreTools": "列出更多工具"
+  },
+  "prompts": {
+    "title": "提示词",
+    "selectPrompt": "选择提示词",
+    "getPrompt": "获取提示词",
+    "required": "（必填）",
+    "selectPromptFromList": "从列表中选择提示词以查看和使用它",
+    "listPrompts": "列出提示词",
+    "listMorePrompts": "列出更多提示词"
+  },
+  "resources": {
+    "title": "资源",
+    "selectResource": "选择资源",
+    "readResource": "读取资源",
+    "subscribe": "订阅",
+    "unsubscribe": "取消订阅",
+    "selectResourceFromList": "从列表中选择资源以查看其内容",
+    "listResources": "列出资源",
+    "listMoreResources": "列出更多资源",
+    "templates": "模板",
+    "listTemplates": "列出模板",
+    "listMoreTemplates": "列出更多模板"
+  },
+  "roots": {
+    "title": "根目录",
+    "description": "配置服务器可以访问的根目录",
+    "addRoot": "添加根目录",
+    "saveChanges": "保存更改",
+    "fileUriPlaceholder": "file:// URI"
+  },
+  "ping": {
+    "pingServer": "Ping 服务器"
+  },
+  "sampling": {
+    "description": "当服务器请求 LLM 采样时，请求将在此处等待批准。",
+    "recentRequests": "最近的请求",
+    "noPendingRequests": "没有待处理的请求"
+  },
+  "elicitations": {
+    "description": "当服务器请求用户提供信息时，请求将在此处等待响应。",
+    "recentRequests": "最近的请求",
+    "noPendingRequests": "没有待处理的请求"
+  },
+  "metadata": {
+    "title": "元数据",
+    "description": "将包含在所有 MCP 请求中的键值对",
+    "addEntry": "添加条目"
+  },
+  "history": {
+    "title": "历史记录",
+    "clear": "清除",
+    "noHistory": "暂无历史记录",
+    "request": "请求：",
+    "response": "响应："
+  },
+  "notifications": {
+    "title": "服务器通知",
+    "clear": "清除",
+    "noNotifications": "暂无通知",
+    "details": "详情："
+  },
+  "customHeaders": {
+    "title": "自定义请求头",
+    "titleJson": "自定义请求头（JSON）",
+    "switchToForm": "切换到表单",
+    "switchToJson": "JSON",
+    "add": "添加",
+    "headerNamePlaceholder": "请求头名称",
+    "headerValuePlaceholder": "请求头值",
+    "noHeaders": "未配置自定义请求头",
+    "noHeadersHint": "点击\"添加\"开始",
+    "headersHint": "使用切换开关启用/禁用请求头。只有启用且具有名称和值的请求头才会被发送。",
+    "jsonHint": "以 JSON 对象格式输入请求头，键值对均为字符串。",
+    "jsonError": "JSON 必须是包含字符串键值对的对象",
+    "invalidJson": "无效的 JSON 格式"
+  },
+  "jsonView": {
+    "copyError": "错误",
+    "copyErrorDesc": "复制结果到剪贴板时出错：{{error}}",
+    "item": "个条目",
+    "items": "个条目",
+    "copyValue": "复制值",
+    "copyValueOf": "复制 {{name}} 的值"
+  },
+  "oauth": {
+    "errorTitle": "OAuth 授权错误",
+    "successTitle": "成功",
+    "successDesc": "OAuth 认证成功",
+    "processing": "正在处理 OAuth 回调...",
+    "missingServerUrl": "缺少服务器 URL"
+  },
+  "listPane": {
+    "searchPlaceholder": "搜索...",
+    "searchAriaLabel": "搜索",
+    "clear": "清除",
+    "noItemsFound": "未找到匹配 \"{{query}}\" 的条目"
+  },
+  "console": {
+    "welcome": "欢迎使用 MCP 客户端控制台"
+  },
+  "common": {
+    "error": "错误",
+    "loading": "加载中...",
+    "noCapabilities": "连接的服务器不支持任何 MCP 功能",
+    "resizeSidebar": "调整侧边栏大小",
+    "connectToServer": "连接到 MCP 服务器开始检查",
+    "needToConfigureAuth": "需要配置认证？",
+    "openAuthSettings": "打开认证设置"
+  },
+  "language": {
+    "label": "语言",
+    "en": "English",
+    "zh": "中文"
+  }
+}

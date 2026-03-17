@@ -1,0 +1,222 @@
+{
+  "sidebar": {
+    "title": "MCP Inspector",
+    "transportType": "Transport Type",
+    "selectTransportType": "Select transport type",
+    "command": "Command",
+    "commandPlaceholder": "Command",
+    "arguments": "Arguments",
+    "argumentsPlaceholder": "Arguments (space-separated)",
+    "url": "URL",
+    "connectionType": "Connection Type",
+    "selectConnectionType": "Select connection type",
+    "viaProxy": "Via Proxy",
+    "direct": "Direct",
+    "connectionTypeTip": "Connect to server directly (requires CORS config on server) or via MCP Inspector Proxy",
+    "environmentVariables": "Environment Variables",
+    "addEnvironmentVariable": "Add Environment Variable",
+    "envVarKey": "Environment variable key {{index}}",
+    "envVarValue": "Environment variable value {{index}}",
+    "keyPlaceholder": "Key",
+    "valuePlaceholder": "Value",
+    "hideValue": "Hide value",
+    "showValue": "Show value",
+    "serverEntry": "Server Entry",
+    "copyServerEntry": "Copy Server Entry",
+    "serversFile": "Servers File",
+    "copyServersFile": "Copy Servers File",
+    "authentication": "Authentication",
+    "oauthFlow": "OAuth 2.0 Flow",
+    "clientId": "Client ID",
+    "clientIdPlaceholder": "Client ID",
+    "clientSecret": "Client Secret",
+    "clientSecretPlaceholder": "Client Secret (optional)",
+    "hideSecret": "Hide secret",
+    "showSecret": "Show secret",
+    "redirectUrl": "Redirect URL",
+    "redirectUrlPlaceholder": "Redirect URL",
+    "scope": "Scope",
+    "scopePlaceholder": "Scope (space-separated)",
+    "configuration": "Configuration",
+    "restart": "Restart",
+    "reconnect": "Reconnect",
+    "disconnect": "Disconnect",
+    "connect": "Connect",
+    "connected": "Connected",
+    "disconnected": "Disconnected",
+    "connectionError": "Connection Error - Check if your MCP server is running and proxy token is correct",
+    "connectionErrorNoToken": "Connection Error - Did you add the proxy session token in Configuration?",
+    "errorConnectingToProxy": "Error Connecting to MCP Inspector Proxy - Check Console logs",
+    "version": "Version",
+    "loggingLevel": "Logging Level",
+    "selectLoggingLevel": "Select logging level",
+    "theme": {
+      "system": "System",
+      "light": "Light",
+      "dark": "Dark"
+    },
+    "inspectorDocumentation": "Inspector Documentation",
+    "debuggingGuide": "Debugging Guide",
+    "reportBugs": "Report bugs or contribute on GitHub",
+    "configEntryCopied": "Config entry copied",
+    "configEntryCopiedStdio": "Server configuration has been copied to clipboard. Add this to your mcp.json inside the 'mcpServers' object with your preferred server name.",
+    "configEntryCopiedStreamableHttp": "Streamable HTTP URL has been copied. Use this URL directly in your MCP Client.",
+    "configEntryCopiedSse": "SSE URL has been copied. Use this URL directly in your MCP Client.",
+    "serversFileCopied": "Servers file copied",
+    "serversFileCopiedDesc": "Servers configuration has been copied to clipboard. Add this to your mcp.json file. Current testing server will be added as 'default-server'",
+    "copyError": "Error",
+    "copyErrorDesc": "Failed to copy config: {{error}}",
+    "trueFalse": {
+      "true": "True",
+      "false": "False"
+    }
+  },
+  "tabs": {
+    "resources": "Resources",
+    "prompts": "Prompts",
+    "tools": "Tools",
+    "tasks": "Tasks",
+    "apps": "Apps",
+    "ping": "Ping",
+    "sampling": "Sampling",
+    "elicitations": "Elicitations",
+    "roots": "Roots",
+    "auth": "Auth",
+    "metadata": "Metadata"
+  },
+  "tools": {
+    "title": "Tools",
+    "selectTool": "Select a tool",
+    "runTool": "Run Tool",
+    "toolResult": "Tool Result",
+    "noToolSelected": "Select a tool from the list to view its details",
+    "annotations": {
+      "readOnly": "Read-only",
+      "readOnlyDesc": "Tool does not modify its environment",
+      "destructive": "Destructive",
+      "destructiveDesc": "Tool may perform destructive updates (delete/overwrite data)",
+      "idempotent": "Idempotent",
+      "idempotentDesc": "Calling repeatedly with same args has no additional effect",
+      "openWorld": "Open-world",
+      "openWorldDesc": "Tool may interact with external entities beyond its local environment"
+    },
+    "copyInput": "Copy Input",
+    "copyInputError": "Error",
+    "copyInputErrorDesc": "There was an error copying input to the clipboard: {{error}}",
+    "listTools": "List Tools",
+    "listMoreTools": "List More Tools"
+  },
+  "prompts": {
+    "title": "Prompts",
+    "selectPrompt": "Select a prompt",
+    "getPrompt": "Get Prompt",
+    "required": "(Required)",
+    "selectPromptFromList": "Select a prompt from the list to view and use it",
+    "listPrompts": "List Prompts",
+    "listMorePrompts": "List More Prompts"
+  },
+  "resources": {
+    "title": "Resources",
+    "selectResource": "Select a resource",
+    "readResource": "Read Resource",
+    "subscribe": "Subscribe",
+    "unsubscribe": "Unsubscribe",
+    "selectResourceFromList": "Select a resource or template from the list to view its contents",
+    "listResources": "List Resources",
+    "listMoreResources": "List More Resources",
+    "templates": "Templates",
+    "listTemplates": "List Templates",
+    "listMoreTemplates": "List More Templates"
+  },
+  "roots": {
+    "title": "Roots",
+    "description": "Configure the root directories that the server can access",
+    "addRoot": "Add Root",
+    "saveChanges": "Save Changes",
+    "fileUriPlaceholder": "file:// URI"
+  },
+  "ping": {
+    "pingServer": "Ping Server"
+  },
+  "sampling": {
+    "description": "When the server requests LLM sampling, requests will appear here for approval.",
+    "recentRequests": "Recent Requests",
+    "noPendingRequests": "No pending requests"
+  },
+  "elicitations": {
+    "description": "When the server requests information from the user, requests will appear here for response.",
+    "recentRequests": "Recent Requests",
+    "noPendingRequests": "No pending requests"
+  },
+  "metadata": {
+    "title": "Metadata",
+    "description": "Key-value pairs that will be included in all MCP requests",
+    "addEntry": "Add Entry"
+  },
+  "history": {
+    "title": "History",
+    "clear": "Clear",
+    "noHistory": "No history yet",
+    "request": "Request:",
+    "response": "Response:"
+  },
+  "notifications": {
+    "title": "Server Notifications",
+    "clear": "Clear",
+    "noNotifications": "No notifications yet",
+    "details": "Details:"
+  },
+  "customHeaders": {
+    "title": "Custom Headers",
+    "titleJson": "Custom Headers (JSON)",
+    "switchToForm": "Switch to Form",
+    "switchToJson": "JSON",
+    "add": "Add",
+    "headerNamePlaceholder": "Header Name",
+    "headerValuePlaceholder": "Header Value",
+    "noHeaders": "No custom headers configured",
+    "noHeadersHint": "Click \"Add\" to get started",
+    "headersHint": "Use the toggle to enable/disable headers. Only enabled headers with both name and value will be sent.",
+    "jsonHint": "Enter headers as a JSON object with string key-value pairs.",
+    "jsonError": "JSON must be an object with string key-value pairs",
+    "invalidJson": "Invalid JSON format"
+  },
+  "jsonView": {
+    "copyError": "Error",
+    "copyErrorDesc": "There was an error copying result into the clipboard: {{error}}",
+    "item": "item",
+    "items": "items",
+    "copyValue": "Copy value",
+    "copyValueOf": "Copy value of {{name}}"
+  },
+  "oauth": {
+    "errorTitle": "OAuth Authorization Error",
+    "successTitle": "Success",
+    "successDesc": "Successfully authenticated with OAuth",
+    "processing": "Processing OAuth callback...",
+    "missingServerUrl": "Missing Server URL"
+  },
+  "listPane": {
+    "searchPlaceholder": "Search...",
+    "searchAriaLabel": "Search",
+    "clear": "Clear",
+    "noItemsFound": "No items found matching \"{{query}}\""
+  },
+  "console": {
+    "welcome": "Welcome to MCP Client Console"
+  },
+  "common": {
+    "error": "Error",
+    "loading": "Loading...",
+    "noCapabilities": "The connected server does not support any MCP capabilities",
+    "resizeSidebar": "Resize sidebar",
+    "connectToServer": "Connect to an MCP server to start inspecting",
+    "needToConfigureAuth": "Need to configure authentication?",
+    "openAuthSettings": "Open Auth Settings"
+  },
+  "language": {
+    "label": "Language",
+    "en": "English",
+    "zh": "中文"
+  }
+}

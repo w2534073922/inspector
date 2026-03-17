@@ -9,6 +9,7 @@ import {
   CustomHeader,
   createEmptyHeader,
 } from "@/lib/types/customHeaders";
+import { useTranslation } from "react-i18next";
 
 interface CustomHeadersProps {
   headers: CustomHeadersType;
@@ -21,6 +22,7 @@ const CustomHeaders = ({
   onChange,
   className,
 }: CustomHeadersProps) => {
+  const { t } = useTranslation();
   const [isJsonMode, setIsJsonMode] = useState(false);
   const [jsonValue, setJsonValue] = useState("");
   const [jsonError, setJsonError] = useState<string | null>(null);
@@ -75,7 +77,7 @@ const CustomHeaders = ({
         parsed === null ||
         Array.isArray(parsed)
       ) {
-        setJsonError("JSON must be an object with string key-value pairs");
+        setJsonError(t('customHeaders.jsonError'));
         return;
       }
 
@@ -91,7 +93,7 @@ const CustomHeaders = ({
       setJsonError(null);
       setIsJsonMode(false);
     } catch {
-      setJsonError("Invalid JSON format");
+      setJsonError(t('customHeaders.invalidJson'));
     }
   };
 
@@ -105,7 +107,7 @@ const CustomHeaders = ({
       <div className={`space-y-3 ${className}`}>
         <div className="flex justify-between items-center gap-2">
           <h4 className="text-sm font-semibold flex-shrink-0">
-            Custom Headers (JSON)
+            {t('customHeaders.titleJson')}
           </h4>
           <Button
             type="button"
@@ -114,7 +116,7 @@ const CustomHeaders = ({
             onClick={switchToFormMode}
             className="flex-shrink-0"
           >
-            Switch to Form
+            {t('customHeaders.switchToForm')}
           </Button>
         </div>
         <div className="space-y-2">
@@ -126,7 +128,7 @@ const CustomHeaders = ({
           />
           {jsonError && <p className="text-sm text-red-600">{jsonError}</p>}
           <p className="text-xs text-muted-foreground">
-            Enter headers as a JSON object with string key-value pairs.
+            {t('customHeaders.jsonHint')}
           </p>
         </div>
       </div>
@@ -136,7 +138,7 @@ const CustomHeaders = ({
   return (
     <div className={`space-y-3 ${className}`}>
       <div className="flex justify-between items-center gap-2">
-        <h4 className="text-sm font-semibold flex-shrink-0">Custom Headers</h4>
+        <h4 className="text-sm font-semibold flex-shrink-0">{t('customHeaders.title')}</h4>
         <div className="flex gap-1 flex-shrink-0">
           <Button
             type="button"
@@ -145,7 +147,7 @@ const CustomHeaders = ({
             onClick={switchToJsonMode}
             className="text-xs px-2"
           >
-            JSON
+            {t('customHeaders.switchToJson')}
           </Button>
           <Button
             type="button"
@@ -156,15 +158,15 @@ const CustomHeaders = ({
             data-testid="add-header-button"
           >
             <Plus className="w-3 h-3 mr-1" />
-            Add
+            {t('customHeaders.add')}
           </Button>
         </div>
       </div>
 
       {headers.length === 0 ? (
         <div className="text-center py-4 text-muted-foreground">
-          <p className="text-sm">No custom headers configured</p>
-          <p className="text-xs mt-1">Click "Add" to get started</p>
+          <p className="text-sm">{t('customHeaders.noHeaders')}</p>
+          <p className="text-xs mt-1">{t('customHeaders.noHeadersHint')}</p>
         </div>
       ) : (
         <div className="space-y-2 max-h-[300px] overflow-y-auto">
@@ -182,7 +184,7 @@ const CustomHeaders = ({
               />
               <div className="flex-1 min-w-0 space-y-2">
                 <Input
-                  placeholder="Header Name"
+                  placeholder={t('customHeaders.headerNamePlaceholder')}
                   value={header.name}
                   onChange={(e) => updateHeader(index, "name", e.target.value)}
                   className="font-mono text-xs"
@@ -190,7 +192,7 @@ const CustomHeaders = ({
                 />
                 <div className="relative">
                   <Input
-                    placeholder="Header Value"
+                    placeholder={t('customHeaders.headerValuePlaceholder')}
                     value={header.value}
                     onChange={(e) =>
                       updateHeader(index, "value", e.target.value)
@@ -230,8 +232,7 @@ const CustomHeaders = ({
 
       {headers.length > 0 && (
         <p className="text-xs text-muted-foreground">
-          Use the toggle to enable/disable headers. Only enabled headers with
-          both name and value will be sent.
+          {t('customHeaders.headersHint')}
         </p>
       )}
     </div>

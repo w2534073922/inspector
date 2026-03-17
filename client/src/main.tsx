@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { Toaster } from "@/components/ui/toaster.tsx";
+import "./i18n";
 import App from "./App.tsx";
 import "./index.css";
 import { TooltipProvider } from "./components/ui/tooltip.tsx";

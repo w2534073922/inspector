@@ -1,6 +1,7 @@
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { useTranslation } from "react-i18next";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { TabsContent } from "@/components/ui/tabs";
@@ -100,6 +101,7 @@ const AnnotationBadges = ({
 }: {
   annotations: ToolAnnotations | undefined;
 }) => {
+  const { t } = useTranslation();
   // Spec defaults: readOnlyHint=false, destructiveHint=true, idempotentHint=false, openWorldHint=true
   const getValueAndImplied = (
     value: boolean | undefined,
@@ -117,30 +119,28 @@ const AnnotationBadges = ({
   // Descriptions from MCP spec
   const badges = [
     {
-      label: "Read-only",
+      label: t('tools.annotations.readOnly'),
       value: readOnly.value,
       implied: readOnly.implied,
-      description: "Tool does not modify its environment",
+      description: t('tools.annotations.readOnlyDesc'),
     },
     {
-      label: "Destructive",
+      label: t('tools.annotations.destructive'),
       value: destructive.value,
       implied: destructive.implied,
-      description:
-        "Tool may perform destructive updates (delete/overwrite data)",
+      description: t('tools.annotations.destructiveDesc'),
     },
     {
-      label: "Idempotent",
+      label: t('tools.annotations.idempotent'),
       value: idempotent.value,
       implied: idempotent.implied,
-      description: "Calling repeatedly with same args has no additional effect",
+      description: t('tools.annotations.idempotentDesc'),
     },
     {
-      label: "Open-world",
+      label: t('tools.annotations.openWorld'),
       value: openWorld.value,
       implied: openWorld.implied,
-      description:
-        "Tool may interact with external entities beyond its local environment",
+      description: t('tools.annotations.openWorldDesc'),
     },
   ];
 
@@ -210,6 +210,7 @@ const ToolsTab = ({
   const formRefs = useRef<Record<string, DynamicJsonFormRef | null>>({});
   const { toast } = useToast();
   const { copied, setCopied } = useCopy();
+  const { t } = useTranslation();
 
   // Function to check if any form has validation errors
   const checkValidationErrors = (validateChildren: boolean = false) => {
@@ -298,8 +299,8 @@ const ToolsTab = ({
               <ChevronRight className="w-4 h-4 flex-shrink-0 text-gray-400 mt-1" />
             </div>
           )}
-          title="Tools"
-          buttonText={nextCursor ? "List More Tools" : "List Tools"}
+          title={t('tools.title')}
+          buttonText={nextCursor ? t('tools.listMoreTools') : t('tools.listTools')}
           isButtonDisabled={!nextCursor && tools.length > 0}
         />
 
@@ -315,7 +316,7 @@ const ToolsTab = ({
               <h3 className="font-semibold">
                 {selectedTool
                   ? selectedTool.title || selectedTool.name
-                  : "Select a tool"}
+                  : t('tools.selectTool')}
               </h3>
             </div>
           </div>
@@ -325,7 +326,7 @@ const ToolsTab = ({
                 {error && (
                   <Alert variant="destructive">
                     <AlertCircle className="h-4 w-4" />
-                    <AlertTitle>Error</AlertTitle>
+                    <AlertTitle>{t('common.error')}</AlertTitle>
                     <AlertDescription className="break-all">
                       {error}
                     </AlertDescription>
@@ -851,7 +852,7 @@ const ToolsTab = ({
                   ) : (
                     <>
                       <Send className="w-4 h-4 mr-2" />
-                      Run Tool
+                      {t('tools.runTool')}
                     </>
                   )}
                 </Button>
@@ -865,8 +866,8 @@ const ToolsTab = ({
                         setCopied(true);
                       } catch (error) {
                         toast({
-                          title: "Error",
-                          description: `There was an error copying input to the clipboard: ${error instanceof Error ? error.message : String(error)}`,
+                          title: t('tools.copyInputError'),
+                          description: t('tools.copyInputErrorDesc', { error: error instanceof Error ? error.message : String(error) }),
                           variant: "destructive",
                         });
                       }
@@ -877,7 +878,7 @@ const ToolsTab = ({
                     ) : (
                       <Copy className="h-4 w-4 mr-2" />
                     )}
-                    Copy Input
+                    {t('tools.copyInput')}
                   </Button>
                 </div>
                 <ToolResults
@@ -891,7 +892,7 @@ const ToolsTab = ({
             ) : (
               <Alert>
                 <AlertDescription>
-                  Select a tool from the list to view its details and run it
+                  {t('tools.noToolSelected')}
                 </AlertDescription>
               </Alert>
             )}

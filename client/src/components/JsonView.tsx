@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/lib/hooks/useToast";
 import { getDataType, tryParseJson } from "@/utils/jsonUtils";
 import useCopy from "@/lib/hooks/useCopy";
+import { useTranslation } from "react-i18next";
 
 interface JsonViewProps {
   data: unknown;
@@ -27,6 +28,7 @@ const JsonView = memo(
     isError = false,
   }: JsonViewProps) => {
     const { toast } = useToast();
+    const { t } = useTranslation();
     const { copied, setCopied } = useCopy();
 
     const normalizedData = useMemo(() => {
@@ -47,12 +49,12 @@ const JsonView = memo(
         setCopied(true);
       } catch (error) {
         toast({
-          title: "Error",
-          description: `There was an error coping result into the clipboard: ${error instanceof Error ? error.message : String(error)}`,
+          title: t('jsonView.copyError'),
+          description: t('jsonView.copyErrorDesc', { error: error instanceof Error ? error.message : String(error) }),
           variant: "destructive",
         });
       }
-    }, [toast, normalizedData, setCopied]);
+    }, [toast, t, normalizedData, setCopied]);
 
     return (
       <div className={clsx("p-4 border rounded relative", className)}>
@@ -103,6 +105,7 @@ const JsonNode = memo(
     isError = false,
   }: JsonNodeProps) => {
     const { toast } = useToast();
+    const { t } = useTranslation();
     const [isExpanded, setIsExpanded] = useState(depth < initialExpandDepth);
     const [typeStyleMap] = useState<Record<string, string>>({
       number: "text-blue-600",
@@ -152,13 +155,13 @@ const JsonNode = memo(
           setCopied(true);
         } catch (error) {
           toast({
-            title: "Error",
-            description: `There was an error coping result into the clipboard: ${error instanceof Error ? error.message : String(error)}`,
+            title: t('jsonView.copyError'),
+            description: t('jsonView.copyErrorDesc', { error: error instanceof Error ? error.message : String(error) }),
             variant: "destructive",
           });
         }
       },
-      [toast],
+      [toast, t],
     );
 
     const renderCollapsible = (isArray: boolean) => {
@@ -209,7 +212,7 @@ const JsonNode = memo(
                   {symbolMap.collapsed}
                 </span>
                 <span className="ml-1 text-gray-700 dark:group-hover:text-gray-100 group-hover:text-gray-400">
-                  {itemCount} {itemCount === 1 ? "item" : "items"}
+                  {itemCount} {itemCount === 1 ? t('jsonView.item') : t('jsonView.items')}
                 </span>
               </>
             )}
@@ -275,8 +278,8 @@ const JsonNode = memo(
                 e.stopPropagation();
                 handleCopyValue(value as unknown as JsonValue);
               }}
-              aria-label={name ? `Copy value of ${name}` : "Copy value"}
-              title={name ? `Copy value of ${name}` : "Copy value"}
+              aria-label={name ? t('jsonView.copyValueOf', { name }) : t('jsonView.copyValue')}
+              title={name ? t('jsonView.copyValueOf', { name }) : t('jsonView.copyValue')}
             >
               {copied ? (
                 <CheckCheck className="size-4 dark:text-green-700 text-green-600" />
@@ -312,8 +315,8 @@ const JsonNode = memo(
               e.stopPropagation();
               handleCopyValue(value as unknown as JsonValue);
             }}
-            aria-label={name ? `Copy value of ${name}` : "Copy value"}
-            title={name ? `Copy value of ${name}` : "Copy value"}
+            aria-label={name ? t('jsonView.copyValueOf', { name }) : t('jsonView.copyValue')}
+            title={name ? t('jsonView.copyValueOf', { name }) : t('jsonView.copyValue')}
           >
             {copied ? (
               <CheckCheck className="size-4 dark:text-green-700 text-green-600" />
@@ -349,8 +352,8 @@ const JsonNode = memo(
                 e.stopPropagation();
                 handleCopyValue(data as JsonValue);
               }}
-              aria-label={name ? `Copy value of ${name}` : "Copy value"}
-              title={name ? `Copy value of ${name}` : "Copy value"}
+              aria-label={name ? t('jsonView.copyValueOf', { name }) : t('jsonView.copyValue')}
+              title={name ? t('jsonView.copyValueOf', { name }) : t('jsonView.copyValue')}
             >
               {copied ? (
                 <CheckCheck className="size-4 dark:text-green-700 text-green-600" />

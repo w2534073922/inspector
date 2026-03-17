@@ -1,7 +1,9 @@
 import { TabsContent } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 const PingTab = ({ onPingClick }: { onPingClick: () => void }) => {
+  const { t } = useTranslation();
   return (
     <TabsContent value="ping">
       <div className="grid grid-cols-2 gap-4">
@@ -10,7 +12,7 @@ const PingTab = ({ onPingClick }: { onPingClick: () => void }) => {
             onClick={onPingClick}
             className="font-bold py-6 px-12 rounded-full"
           >
-            Ping Server
+            {t('ping.pingServer')}
           </Button>
         </div>
       </div>
@@ -19,3 +21,4 @@ const PingTab = ({ onPingClick }: { onPingClick: () => void }) => {
 };
 
 export default PingTab;
+

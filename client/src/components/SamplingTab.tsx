@@ -5,6 +5,7 @@ import {
   CreateMessageResult,
 } from "@modelcontextprotocol/sdk/types.js";
 import SamplingRequest from "./SamplingRequest";
+import { useTranslation } from "react-i18next";
 
 export type PendingRequest = {
   id: number;
@@ -19,17 +20,17 @@ export type Props = {
 };
 
 const SamplingTab = ({ pendingRequests, onApprove, onReject }: Props) => {
+  const { t } = useTranslation();
   return (
     <TabsContent value="sampling">
       <div className="h-96">
         <Alert>
           <AlertDescription>
-            When the server requests LLM sampling, requests will appear here for
-            approval.
+            {t('sampling.description')}
           </AlertDescription>
         </Alert>
         <div className="mt-4 space-y-4">
-          <h3 className="text-lg font-semibold">Recent Requests</h3>
+          <h3 className="text-lg font-semibold">{t('sampling.recentRequests')}</h3>
           {pendingRequests.map((request) => (
             <SamplingRequest
               key={request.id}
@@ -39,7 +40,7 @@ const SamplingTab = ({ pendingRequests, onApprove, onReject }: Props) => {
             />
           ))}
           {pendingRequests.length === 0 && (
-            <p className="text-gray-500">No pending requests</p>
+            <p className="text-gray-500">{t('sampling.noPendingRequests')}</p>
           )}
         </div>
       </div>
@@ -48,3 +49,4 @@ const SamplingTab = ({ pendingRequests, onApprove, onReject }: Props) => {
 };
 
 export default SamplingTab;
+

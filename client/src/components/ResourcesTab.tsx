@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Combobox } from "@/components/ui/combobox";
 import { TabsContent } from "@/components/ui/tabs";
+import { useTranslation } from "react-i18next";
 import {
   ListResourcesResult,
   Resource,
@@ -65,6 +66,7 @@ const ResourcesTab = ({
   subscribeToResource: (uri: string) => void;
   unsubscribeFromResource: (uri: string) => void;
 }) => {
+  const { t } = useTranslation();
   const [selectedTemplate, setSelectedTemplate] =
     useState<ResourceTemplate | null>(null);
   const [templateValues, setTemplateValues] = useState<Record<string, string>>(
@@ -140,8 +142,8 @@ const ResourcesTab = ({
               <ChevronRight className="w-4 h-4 flex-shrink-0 text-gray-400" />
             </div>
           )}
-          title="Resources"
-          buttonText={nextCursor ? "List More Resources" : "List Resources"}
+          title={t('resources.title')}
+          buttonText={nextCursor ? t('resources.listMoreResources') : t('resources.listResources')}
           isButtonDisabled={!nextCursor && resources.length > 0}
         />
 
@@ -173,9 +175,9 @@ const ResourcesTab = ({
               <ChevronRight className="w-4 h-4 flex-shrink-0 text-gray-400" />
             </div>
           )}
-          title="Resource Templates"
+          title={t('resources.templates')}
           buttonText={
-            nextTemplateCursor ? "List More Templates" : "List Templates"
+            nextTemplateCursor ? t('resources.listMoreTemplates') : t('resources.listTemplates')
           }
           isButtonDisabled={!nextTemplateCursor && resourceTemplates.length > 0}
         />
@@ -199,7 +201,7 @@ const ResourcesTab = ({
                   ? selectedResource.name
                   : selectedTemplate
                     ? selectedTemplate.name
-                    : "Select a resource or template"}
+                    : t('resources.selectResource')}
               </h3>
             </div>
             {selectedResource && (
@@ -211,7 +213,7 @@ const ResourcesTab = ({
                       size="sm"
                       onClick={() => subscribeToResource(selectedResource.uri)}
                     >
-                      Subscribe
+                      {t('resources.subscribe')}
                     </Button>
                   )}
                 {resourceSubscriptionsSupported &&
@@ -223,7 +225,7 @@ const ResourcesTab = ({
                         unsubscribeFromResource(selectedResource.uri)
                       }
                     >
-                      Unsubscribe
+                      {t('resources.unsubscribe')}
                     </Button>
                   )}
                 <Button
@@ -241,7 +243,7 @@ const ResourcesTab = ({
             {error ? (
               <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Error</AlertTitle>
+                <AlertTitle>{t('common.error')}</AlertTitle>
                 <AlertDescription className="break-all">
                   {error}
                 </AlertDescription>
@@ -281,14 +283,13 @@ const ResourcesTab = ({
                   onClick={handleReadTemplateResource}
                   disabled={Object.keys(templateValues).length === 0}
                 >
-                  Read Resource
+                  {t('resources.readResource')}
                 </Button>
               </div>
             ) : (
               <Alert>
                 <AlertDescription>
-                  Select a resource or template from the list to view its
-                  contents
+                  {t('resources.selectResourceFromList')}
                 </AlertDescription>
               </Alert>
             )}

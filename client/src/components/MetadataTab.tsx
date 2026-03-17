@@ -13,6 +13,7 @@ import {
   hasValidMetaPrefix,
   isReservedMetaKey,
 } from "@/utils/metaUtils";
+import { useTranslation } from "react-i18next";
 
 interface MetadataEntry {
   key: string;
@@ -28,6 +29,7 @@ const MetadataTab: React.FC<MetadataTabProps> = ({
   metadata,
   onMetadataChange,
 }) => {
+  const { t } = useTranslation();
   const [entries, setEntries] = useState<MetadataEntry[]>(() => {
     return Object.entries(metadata).map(([key, value]) => ({ key, value }));
   });
@@ -75,14 +77,14 @@ const MetadataTab: React.FC<MetadataTabProps> = ({
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-lg font-semibold">Metadata</h3>
+            <h3 className="text-lg font-semibold">{t('metadata.title')}</h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Key-value pairs that will be included in all MCP requests
+              {t('metadata.description')}
             </p>
           </div>
           <Button onClick={addEntry} size="sm">
             <Plus className="w-4 h-4 mr-2" />
-            Add Entry
+            {t('metadata.addEntry')}
           </Button>
         </div>
 

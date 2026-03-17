@@ -4,6 +4,7 @@ module.exports = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
     "\\.css$": "<rootDir>/src/__mocks__/styleMock.js",
+    "^react-i18next$": "<rootDir>/src/__mocks__/react-i18next.ts",
   },
   transform: {
     "^.+\\.tsx?$": [

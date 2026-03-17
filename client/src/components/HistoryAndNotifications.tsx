@@ -2,6 +2,7 @@ import { ServerNotification } from "@modelcontextprotocol/sdk/types.js";
 import { useState } from "react";
 import JsonView from "./JsonView";
 import { Button } from "@/components/ui/button";
+import { useTranslation } from "react-i18next";
 
 const HistoryAndNotifications = ({
   requestHistory,
@@ -14,6 +15,7 @@ const HistoryAndNotifications = ({
   onClearHistory?: () => void;
   onClearNotifications?: () => void;
 }) => {
+  const { t } = useTranslation();
   const [expandedRequests, setExpandedRequests] = useState<{
     [key: number]: boolean;
   }>({});
@@ -33,19 +35,19 @@ const HistoryAndNotifications = ({
     <div className="bg-card overflow-hidden flex h-full">
       <div className="flex-1 overflow-y-auto p-4 border-r">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">History</h2>
+          <h2 className="text-lg font-semibold">{t('history.title')}</h2>
           <Button
             variant="outline"
             size="sm"
             onClick={onClearHistory}
             disabled={requestHistory.length === 0}
           >
-            Clear
+            {t('history.clear')}
           </Button>
         </div>
         {requestHistory.length === 0 ? (
           <p className="text-sm text-gray-500 dark:text-gray-400 italic">
-            No history yet
+            {t('history.noHistory')}
           </p>
         ) : (
           <ul className="space-y-3">
@@ -78,7 +80,7 @@ const HistoryAndNotifications = ({
                       <div className="mt-2">
                         <div className="flex justify-between items-center mb-1">
                           <span className="font-semibold text-blue-600">
-                            Request:
+                            {t('history.request')}
                           </span>
                         </div>
 
@@ -91,7 +93,7 @@ const HistoryAndNotifications = ({
                         <div className="mt-2">
                           <div className="flex justify-between items-center mb-1">
                             <span className="font-semibold text-green-600">
-                              Response:
+                              {t('history.response')}
                             </span>
                           </div>
                           <JsonView
@@ -109,19 +111,19 @@ const HistoryAndNotifications = ({
       </div>
       <div className="flex-1 overflow-y-auto p-4">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold">Server Notifications</h2>
+          <h2 className="text-lg font-semibold">{t('notifications.title')}</h2>
           <Button
             variant="outline"
             size="sm"
             onClick={onClearNotifications}
             disabled={serverNotifications.length === 0}
           >
-            Clear
+            {t('notifications.clear')}
           </Button>
         </div>
         {serverNotifications.length === 0 ? (
           <p className="text-sm text-gray-500 dark:text-gray-400 italic">
-            No notifications yet
+            {t('notifications.noNotifications')}
           </p>
         ) : (
           <ul className="space-y-3">
@@ -159,7 +161,7 @@ const HistoryAndNotifications = ({
                     <div className="mt-2">
                       <div className="flex justify-between items-center mb-1">
                         <span className="font-semibold text-purple-600">
-                          Details:
+                          {t('notifications.details')}
                         </span>
                       </div>
                       <JsonView

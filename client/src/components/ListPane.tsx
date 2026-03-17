@@ -2,6 +2,7 @@ import { Search } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { useState, useMemo, useRef } from "react";
+import { useTranslation } from "react-i18next";
 
 type ListPaneProps<T> = {
   items: T[];
@@ -24,6 +25,7 @@ const ListPane = <T extends object>({
   buttonText,
   isButtonDisabled,
 }: ListPaneProps<T>) => {
+  const { t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -66,7 +68,7 @@ const ListPane = <T extends object>({
             {!isSearchExpanded ? (
               <button
                 name="search"
-                aria-label="Search"
+                aria-label={t('listPane.searchAriaLabel')}
                 onClick={handleSearchClick}
                 className="p-2 hover:bg-gray-100 dark:hover:bg-secondary rounded-md transition-all duration-300 ease-in-out"
               >
@@ -80,7 +82,7 @@ const ListPane = <T extends object>({
                     ref={searchInputRef}
                     name="search"
                     type="text"
-                    placeholder="Search..."
+                    placeholder={t('listPane.searchPlaceholder')}
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     onBlur={handleSearchBlur}
@@ -108,7 +110,7 @@ const ListPane = <T extends object>({
             onClick={clearItems}
             disabled={items.length === 0}
           >
-            Clear
+            {t('listPane.clear')}
           </Button>
         )}
         <div className="space-y-2 overflow-y-auto max-h-96">
@@ -123,7 +125,7 @@ const ListPane = <T extends object>({
           ))}
           {filteredItems.length === 0 && searchQuery && items.length > 0 && (
             <div className="text-center py-4 text-muted-foreground">
-              No items found matching &quot;{searchQuery}&quot;
+              {t('listPane.noItemsFound', { query: searchQuery })}
             </div>
           )}
         </div>

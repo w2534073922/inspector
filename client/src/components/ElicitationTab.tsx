@@ -2,6 +2,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import { TabsContent } from "@/components/ui/tabs";
 import { JsonSchemaType } from "@/utils/jsonUtils";
 import ElicitationRequest from "./ElicitationRequest";
+import { useTranslation } from "react-i18next";
 
 export interface ElicitationRequestData {
   id: number;
@@ -26,17 +27,17 @@ export type Props = {
 };
 
 const ElicitationTab = ({ pendingRequests, onResolve }: Props) => {
+  const { t } = useTranslation();
   return (
     <TabsContent value="elicitations">
       <div className="h-96">
         <Alert>
           <AlertDescription>
-            When the server requests information from the user, requests will
-            appear here for response.
+            {t('elicitations.description')}
           </AlertDescription>
         </Alert>
         <div className="mt-4 space-y-4">
-          <h3 className="text-lg font-semibold">Recent Requests</h3>
+          <h3 className="text-lg font-semibold">{t('elicitations.recentRequests')}</h3>
           {pendingRequests.map((request) => (
             <ElicitationRequest
               key={request.id}
@@ -45,7 +46,7 @@ const ElicitationTab = ({ pendingRequests, onResolve }: Props) => {
             />
           ))}
           {pendingRequests.length === 0 && (
-            <p className="text-gray-500">No pending requests</p>
+            <p className="text-gray-500">{t('elicitations.noPendingRequests')}</p>
           )}
         </div>
       </div>
@@ -54,3 +55,4 @@ const ElicitationTab = ({ pendingRequests, onResolve }: Props) => {
 };
 
 export default ElicitationTab;
+

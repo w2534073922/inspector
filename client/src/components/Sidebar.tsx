@@ -42,6 +42,8 @@ import CustomHeaders from "./CustomHeaders";
 import { CustomHeaders as CustomHeadersType } from "@/lib/types/customHeaders";
 import { useToast } from "../lib/hooks/useToast";
 import IconDisplay, { WithIcons } from "./IconDisplay";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "./LanguageSelector";
 
 interface SidebarProps {
   connectionStatus: ConnectionStatus;
@@ -109,6 +111,7 @@ const Sidebar = ({
   setConnectionType,
   serverImplementation,
 }: SidebarProps) => {
+  const { t } = useTranslation();
   const [theme, setTheme] = useTheme();
   const [showEnvVars, setShowEnvVars] = useState(false);
   const [showAuthConfig, setShowAuthConfig] = useState(false);
@@ -119,18 +122,17 @@ const Sidebar = ({
   const [copiedServerFile, setCopiedServerFile] = useState(false);
   const { toast } = useToast();
 
-  const connectionTypeTip =
-    "Connect to server directly (requires CORS config on server) or via MCP Inspector Proxy";
+  const connectionTypeTip = t('sidebar.connectionTypeTip');
   // Reusable error reporter for copy actions
   const reportError = useCallback(
     (error: unknown) => {
       toast({
-        title: "Error",
-        description: `Failed to copy config: ${error instanceof Error ? error.message : String(error)}`,
+        title: t('sidebar.copyError'),
+        description: t('sidebar.copyErrorDesc', { error: error instanceof Error ? error.message : String(error) }),
         variant: "destructive",
       });
     },
-    [toast],
+    [toast, t],
   );
 
   // Shared utility function to generate server config
@@ -187,13 +189,13 @@ const Sidebar = ({
           setCopiedServerEntry(true);
 
           toast({
-            title: "Config entry copied",
+            title: t('sidebar.configEntryCopied'),
             description:
               transportType === "stdio"
-                ? "Server configuration has been copied to clipboard. Add this to your mcp.json inside the 'mcpServers' object with your preferred server name."
+                ? t('sidebar.configEntryCopiedStdio')
                 : transportType === "streamable-http"
-                  ? "Streamable HTTP URL has been copied. Use this URL directly in your MCP Client."
-                  : "SSE URL has been copied. Use this URL directly in your MCP Client.",
+                  ? t('sidebar.configEntryCopiedStreamableHttp')
+                  : t('sidebar.configEntryCopiedSse'),
           });
 
           setTimeout(() => {
@@ -217,9 +219,8 @@ const Sidebar = ({
           setCopiedServerFile(true);
 
           toast({
-            title: "Servers file copied",
-            description:
-              "Servers configuration has been copied to clipboard. Add this to your mcp.json file. Current testing server will be added as 'default-server'",
+            title: t('sidebar.serversFileCopied'),
+            description: t('sidebar.serversFileCopiedDesc'),
           });
 
           setTimeout(() => {
@@ -251,7 +252,7 @@ const Sidebar = ({
               className="text-sm font-medium"
               htmlFor="transport-type-select"
             >
-              Transport Type
+              {t('sidebar.transportType')}
             </label>
             <Select
               value={transportType}
@@ -260,7 +261,7 @@ const Sidebar = ({
               }
             >
               <SelectTrigger id="transport-type-select">
-                <SelectValue placeholder="Select transport type" />
+                <SelectValue placeholder={t('sidebar.selectTransportType')} />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="stdio">STDIO</SelectItem>
@@ -274,11 +275,11 @@ const Sidebar = ({
             <>
               <div className="space-y-2">
                 <label className="text-sm font-medium" htmlFor="command-input">
-                  Command
+                  {t('sidebar.command')}
                 </label>
                 <Input
                   id="command-input"
-                  placeholder="Command"
+                  placeholder={t('sidebar.commandPlaceholder')}
                   value={command}
                   onChange={(e) => setCommand(e.target.value)}
                   onBlur={(e) => setCommand(e.target.value.trim())}
@@ -290,11 +291,11 @@ const Sidebar = ({
                   className="text-sm font-medium"
                   htmlFor="arguments-input"
                 >
-                  Arguments
+                  {t('sidebar.arguments')}
                 </label>
                 <Input
                   id="arguments-input"
-                  placeholder="Arguments (space-separated)"
+                  placeholder={t('sidebar.argumentsPlaceholder')}
                   value={args}
                   onChange={(e) => setArgs(e.target.value)}
                   className="font-mono"
@@ -305,14 +306,14 @@ const Sidebar = ({
             <>
               <div className="space-y-2">
                 <label className="text-sm font-medium" htmlFor="sse-url-input">
-                  URL
+                  {t('sidebar.url')}
                 </label>
                 {sseUrl ? (
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Input
                         id="sse-url-input"
-                        placeholder="URL"
+                        placeholder={t('sidebar.url')}
                         value={sseUrl}
                         onChange={(e) => setSseUrl(e.target.value)}
                         className="font-mono"
@@ -323,7 +324,7 @@ const Sidebar = ({
                 ) : (
                   <Input
                     id="sse-url-input"
-                    placeholder="URL"
+                    placeholder={t('sidebar.url')}
                     value={sseUrl}
                     onChange={(e) => setSseUrl(e.target.value)}
                     className="font-mono"
@@ -339,7 +340,7 @@ const Sidebar = ({
                       className="text-sm font-medium"
                       htmlFor="connection-type-select"
                     >
-                      Connection Type
+                      {t('sidebar.connectionType')}
                     </label>
                     <Select
                       value={connectionType}
@@ -348,11 +349,11 @@ const Sidebar = ({
                       }
                     >
                       <SelectTrigger id="connection-type-select">
-                        <SelectValue placeholder="Select connection type" />
+                        <SelectValue placeholder={t('sidebar.selectConnectionType')} />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="proxy">Via Proxy</SelectItem>
-                        <SelectItem value="direct">Direct</SelectItem>
+                        <SelectItem value="proxy">{t('sidebar.viaProxy')}</SelectItem>
+                        <SelectItem value="direct">{t('sidebar.direct')}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -376,7 +377,7 @@ const Sidebar = ({
                 ) : (
                   <ChevronRight className="w-4 h-4 mr-2" />
                 )}
-                Environment Variables
+                {t('sidebar.environmentVariables')}
               </Button>
               {showEnvVars && (
                 <div className="space-y-2">
@@ -384,8 +385,8 @@ const Sidebar = ({
                     <div key={idx} className="space-y-2 pb-4">
                       <div className="flex gap-2">
                         <Input
-                          aria-label={`Environment variable key ${idx + 1}`}
-                          placeholder="Key"
+                          aria-label={t('sidebar.envVarKey', { index: idx + 1 })}
+                          placeholder={t('sidebar.keyPlaceholder')}
                           value={key}
                           onChange={(e) => {
                             const newKey = e.target.value;
@@ -427,9 +428,9 @@ const Sidebar = ({
                       </div>
                       <div className="flex gap-2">
                         <Input
-                          aria-label={`Environment variable value ${idx + 1}`}
+                          aria-label={t('sidebar.envVarValue', { index: idx + 1 })}
                           type={shownEnvVars.has(key) ? "text" : "password"}
-                          placeholder="Value"
+                          placeholder={t('sidebar.valuePlaceholder')}
                           value={value}
                           onChange={(e) => {
                             const newEnv = { ...env };
@@ -454,11 +455,11 @@ const Sidebar = ({
                             });
                           }}
                           aria-label={
-                            shownEnvVars.has(key) ? "Hide value" : "Show value"
+                            shownEnvVars.has(key) ? t('sidebar.hideValue') : t('sidebar.showValue')
                           }
                           aria-pressed={shownEnvVars.has(key)}
                           title={
-                            shownEnvVars.has(key) ? "Hide value" : "Show value"
+                            shownEnvVars.has(key) ? t('sidebar.hideValue') : t('sidebar.showValue')
                           }
                         >
                           {shownEnvVars.has(key) ? (
@@ -480,7 +481,7 @@ const Sidebar = ({
                       setEnv(newEnv);
                     }}
                   >
-                    Add Environment Variable
+                    {t('sidebar.addEnvironmentVariable')}
                   </Button>
                 </div>
               )}
@@ -502,10 +503,10 @@ const Sidebar = ({
                   ) : (
                     <Copy className="h-4 w-4 mr-2" />
                   )}
-                  Server Entry
+                  {t('sidebar.serverEntry')}
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Copy Server Entry</TooltipContent>
+              <TooltipContent>{t('sidebar.copyServerEntry')}</TooltipContent>
             </Tooltip>
             <Tooltip>
               <TooltipTrigger asChild>
@@ -520,10 +521,10 @@ const Sidebar = ({
                   ) : (
                     <Copy className="h-4 w-4 mr-2" />
                   )}
-                  Servers File
+                  {t('sidebar.serversFile')}
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Copy Servers File</TooltipContent>
+              <TooltipContent>{t('sidebar.copyServersFile')}</TooltipContent>
             </Tooltip>
           </div>
 
@@ -540,7 +541,7 @@ const Sidebar = ({
               ) : (
                 <ChevronRight className="w-4 h-4 mr-2" />
               )}
-              Authentication
+              {t('sidebar.authentication')}
             </Button>
             {showAuthConfig && (
               <>
@@ -555,24 +556,24 @@ const Sidebar = ({
                   // OAuth Configuration
                   <div className="space-y-2 p-3  rounded border">
                     <h4 className="text-sm font-semibold flex items-center">
-                      OAuth 2.0 Flow
+                      {t('sidebar.oauthFlow')}
                     </h4>
                     <div className="space-y-2">
-                      <label className="text-sm font-medium">Client ID</label>
+                      <label className="text-sm font-medium">{t('sidebar.clientId')}</label>
                       <Input
-                        placeholder="Client ID"
+                        placeholder={t('sidebar.clientIdPlaceholder')}
                         onChange={(e) => setOauthClientId(e.target.value)}
                         value={oauthClientId}
                         data-testid="oauth-client-id-input"
                         className="font-mono"
                       />
                       <label className="text-sm font-medium">
-                        Client Secret
+                        {t('sidebar.clientSecret')}
                       </label>
                       <div className="flex gap-2">
                         <Input
                           type={showClientSecret ? "text" : "password"}
-                          placeholder="Client Secret (optional)"
+                          placeholder={t('sidebar.clientSecretPlaceholder')}
                           onChange={(e) => setOauthClientSecret(e.target.value)}
                           value={oauthClientSecret}
                           data-testid="oauth-client-secret-input"
@@ -584,11 +585,11 @@ const Sidebar = ({
                           className="h-9 w-9 p-0 shrink-0"
                           onClick={() => setShowClientSecret(!showClientSecret)}
                           aria-label={
-                            showClientSecret ? "Hide secret" : "Show secret"
+                            showClientSecret ? t('sidebar.hideSecret') : t('sidebar.showSecret')
                           }
                           aria-pressed={showClientSecret}
                           title={
-                            showClientSecret ? "Hide secret" : "Show secret"
+                            showClientSecret ? t('sidebar.hideSecret') : t('sidebar.showSecret')
                           }
                         >
                           {showClientSecret ? (
@@ -599,17 +600,17 @@ const Sidebar = ({
                         </Button>
                       </div>
                       <label className="text-sm font-medium">
-                        Redirect URL
+                        {t('sidebar.redirectUrl')}
                       </label>
                       <Input
                         readOnly
-                        placeholder="Redirect URL"
+                        placeholder={t('sidebar.redirectUrlPlaceholder')}
                         value={window.location.origin + "/oauth/callback"}
                         className="font-mono"
                       />
-                      <label className="text-sm font-medium">Scope</label>
+                      <label className="text-sm font-medium">{t('sidebar.scope')}</label>
                       <Input
-                        placeholder="Scope (space-separated)"
+                        placeholder={t('sidebar.scopePlaceholder')}
                         onChange={(e) => setOauthScope(e.target.value)}
                         value={oauthScope}
                         data-testid="oauth-scope-input"
@@ -636,7 +637,7 @@ const Sidebar = ({
                 <ChevronRight className="w-4 h-4 mr-2" />
               )}
               <Settings className="w-4 h-4 mr-2" />
-              Configuration
+              {t('sidebar.configuration')}
             </Button>
             {showConfig && (
               <div className="space-y-2">
@@ -693,8 +694,8 @@ const Sidebar = ({
                             <SelectValue />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="true">True</SelectItem>
-                            <SelectItem value="false">False</SelectItem>
+                            <SelectItem value="true">{t('sidebar.trueFalse.true')}</SelectItem>
+                            <SelectItem value="false">{t('sidebar.trueFalse.false')}</SelectItem>
                           </SelectContent>
                         </Select>
                       ) : (
@@ -731,18 +732,18 @@ const Sidebar = ({
                   }}
                 >
                   <RotateCcw className="w-4 h-4 mr-2" />
-                  {transportType === "stdio" ? "Restart" : "Reconnect"}
+                  {transportType === "stdio" ? t('sidebar.restart') : t('sidebar.reconnect')}
                 </Button>
                 <Button onClick={onDisconnect}>
                   <RefreshCwOff className="w-4 h-4 mr-2" />
-                  Disconnect
+                  {t('sidebar.disconnect')}
                 </Button>
               </div>
             )}
             {connectionStatus !== "connected" && (
               <Button className="w-full" onClick={onConnect}>
                 <Play className="w-4 h-4 mr-2" />
-                Connect
+                {t('sidebar.connect')}
               </Button>
             )}
 
@@ -765,18 +766,18 @@ const Sidebar = ({
                 {(() => {
                   switch (connectionStatus) {
                     case "connected":
-                      return "Connected";
+                      return t('sidebar.connected');
                     case "error": {
                       const hasProxyToken = config.MCP_PROXY_AUTH_TOKEN?.value;
                       if (!hasProxyToken) {
-                        return "Connection Error - Did you add the proxy session token in Configuration?";
+                        return t('sidebar.connectionErrorNoToken');
                       }
-                      return "Connection Error - Check if your MCP server is running and proxy token is correct";
+                      return t('sidebar.connectionError');
                     }
                     case "error-connecting-to-proxy":
-                      return "Error Connecting to MCP Inspector Proxy - Check Console logs";
+                      return t('sidebar.errorConnectingToProxy');
                     default:
-                      return "Disconnected";
+                      return t('sidebar.disconnected');
                   }
                 })()}
               </span>
@@ -815,7 +816,7 @@ const Sidebar = ({
                 </div>
                 {serverImplementation.version && (
                   <div className="text-xs text-gray-500 dark:text-gray-400">
-                    Version: {serverImplementation.version}
+                    {t('sidebar.version')}: {serverImplementation.version}
                   </div>
                 )}
               </div>
@@ -827,7 +828,7 @@ const Sidebar = ({
                   className="text-sm font-medium"
                   htmlFor="logging-level-select"
                 >
-                  Logging Level
+                  {t('sidebar.loggingLevel')}
                 </label>
                 <Select
                   value={logLevel}
@@ -836,7 +837,7 @@ const Sidebar = ({
                   }
                 >
                   <SelectTrigger id="logging-level-select">
-                    <SelectValue placeholder="Select logging level" />
+                    <SelectValue placeholder={t('sidebar.selectLoggingLevel')} />
                   </SelectTrigger>
                   <SelectContent>
                     {Object.values(LoggingLevelSchema.enum).map((level) => (
@@ -863,14 +864,16 @@ const Sidebar = ({
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="system">System</SelectItem>
-              <SelectItem value="light">Light</SelectItem>
-              <SelectItem value="dark">Dark</SelectItem>
+              <SelectItem value="system">{t('sidebar.theme.system')}</SelectItem>
+              <SelectItem value="light">{t('sidebar.theme.light')}</SelectItem>
+              <SelectItem value="dark">{t('sidebar.theme.dark')}</SelectItem>
             </SelectContent>
           </Select>
 
+          <LanguageSelector />
+
           <div className="flex items-center space-x-2">
-            <Button variant="ghost" title="Inspector Documentation" asChild>
+            <Button variant="ghost" title={t('sidebar.inspectorDocumentation')} asChild>
               <a
                 href="https://modelcontextprotocol.io/docs/tools/inspector"
                 target="_blank"
@@ -879,7 +882,7 @@ const Sidebar = ({
                 <CircleHelp className="w-4 h-4 text-foreground" />
               </a>
             </Button>
-            <Button variant="ghost" title="Debugging Guide" asChild>
+            <Button variant="ghost" title={t('sidebar.debuggingGuide')} asChild>
               <a
                 href="https://modelcontextprotocol.io/docs/tools/debugging"
                 target="_blank"
@@ -890,7 +893,7 @@ const Sidebar = ({
             </Button>
             <Button
               variant="ghost"
-              title="Report bugs or contribute on GitHub"
+              title={t('sidebar.reportBugs')}
               asChild
             >
               <a

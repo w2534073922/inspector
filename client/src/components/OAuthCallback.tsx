@@ -7,6 +7,7 @@ import {
   generateOAuthErrorDescription,
   parseOAuthCallbackParams,
 } from "@/utils/oauthUtils.ts";
+import { useTranslation } from "react-i18next";
 
 interface OAuthCallbackProps {
   onConnect: (serverUrl: string) => void;
@@ -14,6 +15,7 @@ interface OAuthCallbackProps {
 
 const OAuthCallback = ({ onConnect }: OAuthCallbackProps) => {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const hasProcessedRef = useRef(false);
 
   useEffect(() => {
@@ -26,7 +28,7 @@ const OAuthCallback = ({ onConnect }: OAuthCallbackProps) => {
 
       const notifyError = (description: string) =>
         void toast({
-          title: "OAuth Authorization Error",
+          title: t('oauth.errorTitle'),
           description,
           variant: "destructive",
         });
@@ -38,7 +40,7 @@ const OAuthCallback = ({ onConnect }: OAuthCallbackProps) => {
 
       const serverUrl = sessionStorage.getItem(SESSION_KEYS.SERVER_URL);
       if (!serverUrl) {
-        return notifyError("Missing Server URL");
+        return notifyError(t('oauth.missingServerUrl'));
       }
 
       let result;
@@ -63,8 +65,8 @@ const OAuthCallback = ({ onConnect }: OAuthCallbackProps) => {
 
       // Finally, trigger auto-connect
       toast({
-        title: "Success",
-        description: "Successfully authenticated with OAuth",
+        title: t('oauth.successTitle'),
+        description: t('oauth.successDesc'),
         variant: "default",
       });
       onConnect(serverUrl);
@@ -73,11 +75,11 @@ const OAuthCallback = ({ onConnect }: OAuthCallbackProps) => {
     handleCallback().finally(() => {
       window.history.replaceState({}, document.title, "/");
     });
-  }, [toast, onConnect]);
+  }, [toast, t, onConnect]);
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <p className="text-lg text-gray-500">Processing OAuth callback...</p>
+      <p className="text-lg text-gray-500">{t('oauth.processing')}</p>
     </div>
   );
 };

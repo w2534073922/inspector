@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { TabsContent } from "@/components/ui/tabs";
 import { Root } from "@modelcontextprotocol/sdk/types.js";
 import { Plus, Minus, Save } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const RootsTab = ({
   roots,
@@ -14,6 +15,8 @@ const RootsTab = ({
   setRoots: React.Dispatch<React.SetStateAction<Root[]>>;
   onRootsChange: () => void;
 }) => {
+  const { t } = useTranslation();
+
   const addRoot = () => {
     setRoots((currentRoots) => [...currentRoots, { uri: "file://", name: "" }]);
   };
@@ -39,14 +42,14 @@ const RootsTab = ({
       <div className="space-y-4">
         <Alert>
           <AlertDescription>
-            Configure the root directories that the server can access
+            {t('roots.description')}
           </AlertDescription>
         </Alert>
 
         {roots.map((root, index) => (
           <div key={index} className="flex gap-2 items-center">
             <Input
-              placeholder="file:// URI"
+              placeholder={t('roots.fileUriPlaceholder')}
               value={root.uri}
               onChange={(e) => updateRoot(index, "uri", e.target.value)}
               className="flex-1"
@@ -64,11 +67,11 @@ const RootsTab = ({
         <div className="flex gap-2">
           <Button variant="outline" onClick={addRoot}>
             <Plus className="h-4 w-4 mr-2" />
-            Add Root
+            {t('roots.addRoot')}
           </Button>
           <Button onClick={handleSave}>
             <Save className="h-4 w-4 mr-2" />
-            Save Changes
+            {t('roots.saveChanges')}
           </Button>
         </div>
       </div>
@@ -77,3 +80,4 @@ const RootsTab = ({
 };
 
 export default RootsTab;
+

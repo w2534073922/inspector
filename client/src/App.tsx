@@ -66,6 +66,7 @@ import {
 
 import { z } from "zod";
 import "./App.css";
+import { useTranslation } from "react-i18next";
 import AuthDebugger from "./components/AuthDebugger";
 import ConsoleTab from "./components/ConsoleTab";
 import HistoryAndNotifications from "./components/HistoryAndNotifications";
@@ -142,6 +143,7 @@ const filterReservedMetadata = (
 };
 
 const App = () => {
+  const { t } = useTranslation();
   const [resources, setResources] = useState<Resource[]>([]);
   const [resourceTemplates, setResourceTemplates] = useState<
     ResourceTemplate[]
@@ -1273,7 +1275,7 @@ const App = () => {
       () => import("./components/OAuthCallback"),
     );
     return (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>{t('common.loading')}</div>}>
         <OAuthCallback onConnect={onOAuthConnect} />
       </Suspense>
     );
@@ -1284,7 +1286,7 @@ const App = () => {
       () => import("./components/OAuthDebugCallback"),
     );
     return (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<div>{t('common.loading')}</div>}>
         <OAuthDebugCallback onConnect={onOAuthDebugConnect} />
       </Suspense>
     );
@@ -1344,7 +1346,7 @@ const App = () => {
             zIndex: 10,
             background: isSidebarDragging ? "rgba(0,0,0,0.08)" : "transparent",
           }}
-          aria-label="Resize sidebar"
+          aria-label={t('common.resizeSidebar')}
           data-testid="sidebar-drag-handle"
         />
       </div>
@@ -1365,40 +1367,40 @@ const App = () => {
                   disabled={!serverCapabilities?.resources}
                 >
                   <Files className="w-4 h-4 mr-2" />
-                  Resources
+                  {t('tabs.resources')}
                 </TabsTrigger>
                 <TabsTrigger
                   value="prompts"
                   disabled={!serverCapabilities?.prompts}
                 >
                   <MessageSquare className="w-4 h-4 mr-2" />
-                  Prompts
+                  {t('tabs.prompts')}
                 </TabsTrigger>
                 <TabsTrigger
                   value="tools"
                   disabled={!serverCapabilities?.tools}
                 >
                   <Hammer className="w-4 h-4 mr-2" />
-                  Tools
+                  {t('tabs.tools')}
                 </TabsTrigger>
                 <TabsTrigger
                   value="tasks"
                   disabled={!serverCapabilities?.tasks}
                 >
                   <ListTodo className="w-4 h-4 mr-2" />
-                  Tasks
+                  {t('tabs.tasks')}
                 </TabsTrigger>
                 <TabsTrigger value="apps">
                   <AppWindow className="w-4 h-4 mr-2" />
-                  Apps
+                  {t('tabs.apps')}
                 </TabsTrigger>
                 <TabsTrigger value="ping">
                   <Bell className="w-4 h-4 mr-2" />
-                  Ping
+                  {t('tabs.ping')}
                 </TabsTrigger>
                 <TabsTrigger value="sampling" className="relative">
                   <Hash className="w-4 h-4 mr-2" />
-                  Sampling
+                  {t('tabs.sampling')}
                   {pendingSampleRequests.length > 0 && (
                     <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                       {pendingSampleRequests.length}
@@ -1407,7 +1409,7 @@ const App = () => {
                 </TabsTrigger>
                 <TabsTrigger value="elicitations" className="relative">
                   <MessageSquare className="w-4 h-4 mr-2" />
-                  Elicitations
+                  {t('tabs.elicitations')}
                   {pendingElicitationRequests.length > 0 && (
                     <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
                       {pendingElicitationRequests.length}
@@ -1416,15 +1418,15 @@ const App = () => {
                 </TabsTrigger>
                 <TabsTrigger value="roots">
                   <FolderTree className="w-4 h-4 mr-2" />
-                  Roots
+                  {t('tabs.roots')}
                 </TabsTrigger>
                 <TabsTrigger value="auth">
                   <Key className="w-4 h-4 mr-2" />
-                  Auth
+                  {t('tabs.auth')}
                 </TabsTrigger>
                 <TabsTrigger value="metadata">
                   <Settings className="w-4 h-4 mr-2" />
-                  Metadata
+                  {t('tabs.metadata')}
                 </TabsTrigger>
               </TabsList>
 
@@ -1435,8 +1437,7 @@ const App = () => {
                   <>
                     <div className="flex items-center justify-center p-4">
                       <p className="text-lg text-gray-500 dark:text-gray-400">
-                        The connected server does not support any MCP
-                        capabilities
+                        {t('common.noCapabilities')}
                       </p>
                     </div>
                     <PingTab

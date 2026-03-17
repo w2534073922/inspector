@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Combobox } from "@/components/ui/combobox";
 import { Label } from "@/components/ui/label";
 import { TabsContent } from "@/components/ui/tabs";
+import { useTranslation } from "react-i18next";
 
 import {
   ListPromptsResult,
@@ -62,6 +63,7 @@ const PromptsTab = ({
   nextCursor: ListPromptsResult["nextCursor"];
   error: string | null;
 }) => {
+  const { t } = useTranslation();
   const [promptArgs, setPromptArgs] = useState<Record<string, string>>({});
   const { completions, clearCompletions, requestCompletions } =
     useCompletionState(handleCompletion, completionsSupported);
@@ -128,8 +130,8 @@ const PromptsTab = ({
               <ChevronRight className="w-4 h-4 flex-shrink-0 text-gray-400 mt-1" />
             </div>
           )}
-          title="Prompts"
-          buttonText={nextCursor ? "List More Prompts" : "List Prompts"}
+          title={t('prompts.title')}
+          buttonText={nextCursor ? t('prompts.listMorePrompts') : t('prompts.listPrompts')}
           isButtonDisabled={!nextCursor && prompts.length > 0}
         />
 
@@ -143,7 +145,7 @@ const PromptsTab = ({
                 />
               )}
               <h3 className="font-semibold">
-                {selectedPrompt ? selectedPrompt.name : "Select a prompt"}
+                {selectedPrompt ? selectedPrompt.name : t('prompts.selectPrompt')}
               </h3>
             </div>
           </div>
@@ -151,7 +153,7 @@ const PromptsTab = ({
             {error ? (
               <Alert variant="destructive">
                 <AlertCircle className="h-4 w-4" />
-                <AlertTitle>Error</AlertTitle>
+                <AlertTitle>{t('common.error')}</AlertTitle>
                 <AlertDescription className="break-all">
                   {error}
                 </AlertDescription>
@@ -182,14 +184,14 @@ const PromptsTab = ({
                       <p className="text-xs text-gray-500 mt-1">
                         {arg.description}
                         {arg.required && (
-                          <span className="text-xs mt-1 ml-1">(Required)</span>
+                          <span className="text-xs mt-1 ml-1">{t('prompts.required')}</span>
                         )}
                       </p>
                     )}
                   </div>
                 ))}
                 <Button onClick={handleGetPrompt} className="w-full">
-                  Get Prompt
+                  {t('prompts.getPrompt')}
                 </Button>
                 {promptContent && (
                   <JsonView data={promptContent} withCopyButton={false} />
@@ -198,7 +200,7 @@ const PromptsTab = ({
             ) : (
               <Alert>
                 <AlertDescription>
-                  Select a prompt from the list to view and use it
+                  {t('prompts.selectPromptFromList')}
                 </AlertDescription>
               </Alert>
             )}

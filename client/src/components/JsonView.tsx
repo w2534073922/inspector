@@ -212,7 +212,7 @@ const JsonNode = memo(
                   {symbolMap.collapsed}
                 </span>
                 <span className="ml-1 text-gray-700 dark:group-hover:text-gray-100 group-hover:text-gray-400">
-                  {itemCount} {t('jsonView.items')}
+                  {itemCount} {itemCount === 1 ? t('jsonView.item') : t('jsonView.items')}
                 </span>
               </>
             )}

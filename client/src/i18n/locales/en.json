@@ -183,7 +183,7 @@
   },
   "jsonView": {
     "copyError": "Error",
-    "copyErrorDesc": "There was an error coping result into the clipboard: {{error}}",
+    "copyErrorDesc": "There was an error copying result into the clipboard: {{error}}",
     "item": "item",
     "items": "items",
     "copyValue": "Copy value",

@@ -209,7 +209,10 @@
     "error": "Error",
     "loading": "Loading...",
     "noCapabilities": "The connected server does not support any MCP capabilities",
-    "resizeSidebar": "Resize sidebar"
+    "resizeSidebar": "Resize sidebar",
+    "connectToServer": "Connect to an MCP server to start inspecting",
+    "needToConfigureAuth": "Need to configure authentication?",
+    "openAuthSettings": "Open Auth Settings"
   },
   "language": {
     "label": "Language",

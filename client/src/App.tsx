@@ -1678,18 +1678,18 @@ const App = () => {
           ) : (
             <div className="flex flex-col items-center justify-center h-full gap-4">
               <p className="text-lg text-gray-500 dark:text-gray-400">
-                Connect to an MCP server to start inspecting
+                {t('common.connectToServer')}
               </p>
               <div className="flex items-center gap-2">
                 <p className="text-sm text-muted-foreground">
-                  Need to configure authentication?
+                  {t('common.needToConfigureAuth')}
                 </p>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setIsAuthDebuggerVisible(true)}
                 >
-                  Open Auth Settings
+                  {t('common.openAuthSettings')}
                 </Button>
               </div>
             </div>

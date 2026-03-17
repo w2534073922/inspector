@@ -1,5 +1,5 @@
 // Mock for react-i18next that loads actual translations for testing
-const en = require('../i18n/locales/en.json');
+import en from '../i18n/locales/en.json';
 
 // Resolve a nested key like 'sidebar.title' from the translations object
 function getNestedValue(obj: Record<string, unknown>, key: string): string {
@@ -27,7 +27,7 @@ const t = (key: string, options?: Record<string, unknown>): string => {
   return interpolate(value, options);
 };
 
-const useTranslation = () => ({
+export const useTranslation = () => ({
   t,
   i18n: {
     language: 'en',
@@ -36,11 +36,8 @@ const useTranslation = () => ({
   },
 });
 
-const initReactI18next = { type: '3rdParty', init: jest.fn() };
+export const initReactI18next = { type: '3rdParty', init: jest.fn() };
 
-module.exports = {
-  useTranslation,
-  initReactI18next,
-  Trans: ({ children }: { children: React.ReactNode }) => children,
-  withTranslation: () => (Component: React.ComponentType) => Component,
-};
+export const Trans = ({ children }: { children: React.ReactNode }) => children;
+
+export const withTranslation = () => (Component: React.ComponentType) => Component;

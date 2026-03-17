@@ -209,7 +209,10 @@
     "error": "错误",
     "loading": "加载中...",
     "noCapabilities": "连接的服务器不支持任何 MCP 功能",
-    "resizeSidebar": "调整侧边栏大小"
+    "resizeSidebar": "调整侧边栏大小",
+    "connectToServer": "连接到 MCP 服务器开始检查",
+    "needToConfigureAuth": "需要配置认证？",
+    "openAuthSettings": "打开认证设置"
   },
   "language": {
     "label": "语言",
